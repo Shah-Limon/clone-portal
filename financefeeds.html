@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FinanceFeeds — Trading, Brokers, Fintech &amp; Crypto News</title>
+<meta name="description" content="Independent news on FX trading, fintech regulation, crypto markets, liquidity providers and broker technology.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Slab:wght@400;700;900&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ffNavy: '#0c1424',
+          ffNavy2: '#0f1c33',
+          ffCard: '#ffffff',
+          ffBg: '#f4f6f8',
+          ffLine: '#e5e8ed',
+          ffInk: '#101828',
+          ffRed: '#d7263d',
+          ffRedDark: '#a01c2e',
+          ffGold: '#c79b50',
+          ffMuted: '#6b7280',
+        },
+        fontFamily: {
+          sans: ['Roboto', 'system-ui', '-apple-system', 'Arial', 'sans-serif'],
+          serif: ['Roboto Slab', 'Georgia', 'serif'],
+        },
+      }
+    }
+  }
+</script>
+<style>
+  /* =========================================
+     FinanceFeeds — custom CSS
+     ========================================= */
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { background: #f4f6f8; color: #101828; }
+
+  /* Topbar */
+  .ff-topbar { background: #0c1424; color: #9aa4b2; font-size: 12px; height: 38px; }
+  .ff-topbar .container { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+  .ff-topbar a { color: #cbd5e1; }
+  .ff-topbar a:hover { color: #fff; }
+  .ff-topbar .left > * + * { margin-left: 20px; }
+  .ff-topbar .right > * + * { margin-left: 20px; }
+  .ff-topbar .social { display: inline-flex; gap: 12px; }
+  .ff-topbar .social a { display: inline-flex; }
+
+  /* Header */
+  .ff-header { background: #fff; border-bottom: 3px solid #d7263d; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .ff-head { display: flex; align-items: center; gap: 32px; height: 76px; }
+  .ff-logo { font-family: 'Roboto Slab', serif; font-weight: 900; font-size: 30px; color: #0c1424; letter-spacing: -.5px; line-height: 1; }
+  .ff-logo small { display: block; font-family: 'Roboto', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; color: #d7263d; margin-top: 4px; }
+  .ff-nav { display: flex; align-items: center; gap: 4px; flex: 1; }
+  .ff-nav a { font-size: 13px; font-weight: 700; color: #1f2937; padding: 10px 14px; text-transform: uppercase; letter-spacing: .5px; position: relative; }
+  .ff-nav a:hover, .ff-nav a.active { color: #d7263d; }
+  .ff-nav a.active::after { content: ""; position: absolute; bottom: -3px; left: 14px; right: 14px; height: 3px; background: #d7263d; }
+  .ff-actions { display: flex; align-items: center; gap: 8px; }
+  .ff-search { width: 38px; height: 38px; border: 1px solid #e5e8ed; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #6b7280; }
+  .ff-search:hover { color: #d7263d; border-color: #d7263d; }
+  .ff-subscribe { height: 38px; padding: 0 16px; background: #d7263d; color: #fff; font-weight: 700; font-size: 12px; border-radius: 8px; border: 0; cursor: pointer; text-transform: uppercase; letter-spacing: .5px; }
+  .ff-subscribe:hover { background: #a01c2e; }
+  .ff-menu-btn { display: none; width: 38px; height: 38px; border: 1px solid #e5e8ed; background: #fff; border-radius: 8px; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer; }
+  .ff-menu-btn span { width: 18px; height: 2px; background: #0c1424; }
+
+  /* Breaking news ticker */
+  .ff-breaking { background: #0f1c33; color: #fff; }
+  .ff-breaking-inner { display: flex; align-items: center; gap: 16px; height: 44px; }
+  .ff-breaking-label { background: #d7263d; color: #fff; font-size: 11px; font-weight: 900; padding: 6px 12px; border-radius: 4px; letter-spacing: 1px; text-transform: uppercase; flex-shrink: 0; }
+  .ff-breaking-track { flex: 1; overflow: hidden; }
+  .ff-breaking-content { display: flex; gap: 40px; animation: ff-marquee 50s linear infinite; }
+  .ff-breaking-track:hover .ff-breaking-content { animation-play-state: paused; }
+  .ff-breaking-content a { color: #e5e7eb; font-size: 13px; white-space: nowrap; }
+  .ff-breaking-content a:hover { color: #fff; }
+  .ff-breaking-content a::before { content: "●"; color: #d7263d; margin-right: 8px; }
+  @keyframes ff-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .ff-breaking-content { animation: none; } }
+
+  /* Layout */
+  main { padding: 24px 0 50px; }
+  .ff-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; }
+
+  /* Featured/hero card */
+  .ff-hero { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; margin-bottom: 32px; }
+  .ff-hero-main { position: relative; border-radius: 8px; overflow: hidden; min-height: 460px; background: #0c1424; }
+  .ff-hero-main img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .ff-hero-main::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,.85) 100%); }
+  .ff-hero-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px; color: #fff; z-index: 2; }
+  .ff-tag { display: inline-block; background: #d7263d; color: #fff; font-size: 10px; font-weight: 900; padding: 5px 10px; border-radius: 3px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .ff-hero-content h1 { font-family: 'Roboto Slab', serif; font-size: 32px; line-height: 1.15; margin: 0 0 12px; font-weight: 700; }
+  .ff-hero-content p { font-size: 14px; color: #d1d5db; margin: 0; max-width: 90%; }
+  .ff-meta { display: flex; align-items: center; gap: 12px; font-size: 11px; color: #cbd5e1; margin-top: 14px; text-transform: uppercase; letter-spacing: .5px; }
+  .ff-meta b { color: #fff; font-weight: 700; }
+
+  .ff-hero-side { display: flex; flex-direction: column; gap: 18px; }
+  .ff-side-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.04); border: 1px solid #e5e8ed; transition: all .2s; }
+  .ff-side-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+  .ff-side-card .img-wrap { position: relative; height: 160px; overflow: hidden; background: #0c1424; }
+  .ff-side-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .ff-side-card .img-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,.4)); }
+  .ff-side-card-body { padding: 14px 16px 16px; }
+  .ff-side-card-body h3 { font-family: 'Roboto Slab', serif; font-size: 16px; line-height: 1.3; margin: 0 0 8px; font-weight: 700; color: #101828; }
+  .ff-side-card:hover h3 { color: #d7263d; }
+  .ff-side-card .meta { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: .5px; font-weight: 500; }
+
+  /* Section header */
+  .ff-section-head { display: flex; align-items: end; justify-content: space-between; margin: 32px 0 18px; padding-bottom: 12px; border-bottom: 3px solid #0c1424; gap: 12px; }
+  .ff-section-head h2 { font-family: 'Roboto Slab', serif; font-size: 24px; margin: 0; font-weight: 900; color: #0c1424; text-transform: uppercase; letter-spacing: 0; position: relative; }
+  .ff-section-head h2::after { content: ""; position: absolute; bottom: -15px; left: 0; width: 60px; height: 3px; background: #d7263d; }
+  .ff-section-head a { font-size: 12px; color: #d7263d; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+
+  /* Post card grid */
+  .ff-post-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .ff-post-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.04); border: 1px solid #e5e8ed; transition: all .25s; }
+  .ff-post-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.10); }
+  .ff-post-card .img-wrap { position: relative; height: 180px; overflow: hidden; background: #0c1424; }
+  .ff-post-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+  .ff-post-card:hover .img-wrap img { transform: scale(1.05); }
+  .ff-post-card .img-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,.3)); }
+  .ff-post-card .img-wrap .ff-tag { position: absolute; top: 12px; left: 12px; z-index: 2; }
+  .ff-post-card-body { padding: 18px 20px 20px; }
+  .ff-post-card-body h3 { font-family: 'Roboto Slab', serif; font-size: 18px; line-height: 1.3; margin: 0 0 10px; font-weight: 700; color: #101828; }
+  .ff-post-card:hover h3 { color: #d7263d; }
+  .ff-post-card-body p { font-size: 13px; color: #4b5563; line-height: 1.55; margin: 0 0 12px; }
+  .ff-post-card .meta { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: .5px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .ff-post-card .meta b { color: #d7263d; font-weight: 700; }
+
+  /* Editor picks / large featured */
+  .ff-featured-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .ff-featured-card { background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #e5e8ed; }
+  .ff-featured-card .img-wrap { position: relative; height: 240px; overflow: hidden; }
+  .ff-featured-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .ff-featured-card .img-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,.5)); }
+  .ff-featured-card .img-wrap .ff-tag { position: absolute; top: 14px; left: 14px; z-index: 2; }
+  .ff-featured-card-body { padding: 20px 22px 22px; }
+  .ff-featured-card-body h3 { font-family: 'Roboto Slab', serif; font-size: 22px; line-height: 1.25; margin: 0 0 10px; font-weight: 700; }
+  .ff-featured-card:hover h3 { color: #d7263d; }
+
+  /* Ad slots */
+  .ff-ad-slot { background: linear-gradient(135deg, #f4f6f8, #e5e8ed); border: 1px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #9aa4b2; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; min-height: 90px; }
+  .ff-ad-300 { min-height: 250px; }
+  .ff-ad-leader { min-height: 90px; }
+
+  /* Sidebar */
+  .ff-side { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 100px; }
+  .ff-side-widget { background: #fff; border-radius: 8px; padding: 22px; border: 1px solid #e5e8ed; }
+  .ff-side-widget h3 { font-family: 'Roboto Slab', serif; font-size: 16px; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 2px solid #d7263d; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+  .ff-trending-item { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid #f1f3f5; }
+  .ff-trending-item:last-child { border-bottom: 0; }
+  .ff-trending-num { font-family: 'Roboto Slab', serif; font-size: 28px; font-weight: 900; color: #d7263d; line-height: 1; flex-shrink: 0; min-width: 36px; }
+  .ff-trending-item h4 { font-size: 13px; font-weight: 700; line-height: 1.4; margin: 0 0 4px; color: #101828; }
+  .ff-trending-item:hover h4 { color: #d7263d; }
+  .ff-trending-item .meta { font-size: 10px; color: #6b7280; text-transform: uppercase; letter-spacing: .5px; }
+
+  /* Newsletter widget */
+  .ff-newsletter { background: linear-gradient(135deg, #0c1424, #1a2a4a); color: #fff; border-radius: 8px; padding: 26px; position: relative; overflow: hidden; }
+  .ff-newsletter::before { content: ""; position: absolute; top: -50px; right: -50px; width: 180px; height: 180px; background: rgba(215,38,61,.18); border-radius: 50%; }
+  .ff-newsletter h3 { font-family: 'Roboto Slab', serif; font-size: 19px; margin: 0 0 8px; position: relative; font-weight: 700; }
+  .ff-newsletter p { font-size: 13px; color: #cbd5e1; margin: 0 0 16px; position: relative; }
+  .ff-newsletter .email-row { display: flex; gap: 0; position: relative; }
+  .ff-newsletter input { flex: 1; height: 42px; border: 0; padding: 0 14px; border-radius: 6px 0 0 6px; font-size: 13px; color: #101828; }
+  .ff-newsletter button { height: 42px; padding: 0 18px; border: 0; background: #d7263d; color: #fff; font-weight: 700; font-size: 12px; border-radius: 0 6px 6px 0; cursor: pointer; text-transform: uppercase; letter-spacing: .5px; }
+  .ff-newsletter button:hover { background: #a01c2e; }
+
+  /* Tags widget */
+  .ff-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ff-tag-pill { background: #f4f6f8; color: #1f2937; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 1px solid #e5e8ed; }
+  .ff-tag-pill:hover { background: #d7263d; color: #fff; border-color: #d7263d; }
+
+  /* Markets widget */
+  .ff-market-row { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid #f1f3f5; font-size: 13px; }
+  .ff-market-row:last-child { border-bottom: 0; }
+  .ff-market-pair { font-weight: 700; color: #101828; }
+  .ff-market-price { font-weight: 700; }
+  .ff-market-change { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; min-width: 60px; text-align: center; }
+  .ff-up { color: #16a34a; background: #dcfce7; }
+  .ff-down { color: #dc2626; background: #fee2e2; }
+
+  /* Category tabs */
+  .ff-cat-tabs { display: flex; gap: 0; border-bottom: 2px solid #e5e8ed; margin-bottom: 22px; flex-wrap: wrap; }
+  .ff-cat-tab { padding: 12px 18px; font-size: 13px; font-weight: 700; color: #6b7280; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all .15s; text-transform: uppercase; letter-spacing: .5px; }
+  .ff-cat-tab:hover { color: #101828; }
+  .ff-cat-tab.active { color: #d7263d; border-bottom-color: #d7263d; }
+
+  /* Footer */
+  footer { background: #0c1424; color: #cbd5e1; margin-top: 50px; }
+  .ff-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr; gap: 36px; padding: 50px 0 30px; }
+  .ff-footer-grid h4 { font-family: 'Roboto Slab', serif; font-size: 14px; color: #fff; margin: 0 0 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .ff-footer-brand p { font-size: 13px; line-height: 1.7; color: #9aa4b2; margin: 12px 0 16px; max-width: 320px; }
+  .ff-footer-brand .ff-logo { color: #fff; }
+  .ff-footer-brand .ff-logo small { color: #d7263d; }
+  .ff-footer-grid a { display: block; font-size: 13px; margin: 8px 0; color: #9aa4b2; }
+  .ff-footer-grid a:hover { color: #fff; }
+  .ff-footer-social { display: inline-flex; gap: 12px; }
+  .ff-footer-social a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 6px; background: rgba(255,255,255,.08); color: #cbd5e1; }
+  .ff-footer-social a:hover { background: #d7263d; color: #fff; }
+  .ff-footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding: 18px 0; display: flex; justify-content: space-between; font-size: 12px; color: #6b7280; flex-wrap: wrap; gap: 8px; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .ff-layout { grid-template-columns: 1fr; }
+    .ff-side { position: static; }
+    .ff-hero { grid-template-columns: 1fr; }
+    .ff-hero-main { min-height: 360px; }
+    .ff-post-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .ff-nav, .ff-actions .ff-search, .ff-actions .ff-subscribe { display: none; }
+    .ff-menu-btn { display: flex; }
+    .ff-hero-content h1 { font-size: 22px; }
+    .ff-post-grid { grid-template-columns: 1fr; }
+    .ff-featured-row { grid-template-columns: 1fr; }
+    .ff-footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; padding: 36px 0 24px; }
+    .ff-topbar .left > *:nth-child(n+2) { display: none; }
+    .ff-topbar .right > *:nth-child(n+2) { display: none; }
+  }
+  @media (max-width: 480px) {
+    .ff-footer-grid { grid-template-columns: 1fr; gap: 18px; }
+    .ff-footer-bottom { flex-direction: column; text-align: center; }
+    .ff-cat-tabs { overflow-x: auto; flex-wrap: nowrap; }
+    .ff-cat-tab { padding: 10px 14px; flex-shrink: 0; }
+  }
+</style>
+</head>
+<body class="bg-ffBg text-ffInk font-sans">
+
+<!-- ============ TOPBAR ============ -->
+<div class="ff-topbar">
+  <div class="container mx-auto px-6 flex items-center justify-between h-full">
+    <div class="left flex items-center">
+      <span>📅 Friday, September 11, 2026</span>
+      <span class="hidden md:inline">|</span>
+      <a href="#">FX Markets</a>
+      <a href="#">Fintech</a>
+      <a href="#">Crypto</a>
+    </div>
+    <div class="right flex items-center">
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">Advertise</a>
+      <span class="social">
+        <a href="#" aria-label="Twitter"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.8c-.7.3-1.5.5-2.4.6.9-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1-1.5-1.6-4-1.7-5.6-.2-1 1-1.5 2.4-1.2 3.8C8.7 8.5 5.7 7 3.7 4.5c-1.1 1.8-.5 4.1 1.2 5.2-.7 0-1.3-.2-1.9-.5 0 1.9 1.4 3.6 3.3 4-.6.2-1.2.2-1.9.1.5 1.6 2 2.7 3.8 2.8-1.7 1.4-3.9 1.9-6 1.7 1.9 1.2 4.1 1.9 6.3 1.9 7.5 0 11.7-6.3 11.5-12 0-.2 0-.4-.1-.6.8-.6 1.5-1.3 2.1-2.2z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5C2.2 0 0 2.2 0 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5V5c0-2.8-2.2-5-5-5zM8 19H5V8h3v11zM6.5 6.7C5.5 6.7 4.7 5.9 4.7 5s.8-1.7 1.8-1.7S8.3 4 8.3 5s-.8 1.7-1.8 1.7zM20 19h-3v-5.6c0-1.4-.5-2.3-1.7-2.3-.9 0-1.5.6-1.7 1.2-.1.2-.1.5-.1.8V19h-3V8h3v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 3.5 1.3 3.5 4.1V19z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.5c-1 .3-1.7 1.1-2 2.1C0 8 0 12 0 12s0 4 .5 5.8c.3 1 1 1.8 2 2.1 1.9.5 9.5.5 9.5.5s7.6 0 9.5-.5c1-.3 1.7-1.1 2-2.1.5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="ff-header">
+  <div class="container mx-auto px-6 ff-head">
+    <a href="#" class="ff-logo">
+      FinanceFeeds
+      <small>TRADERS' INTELLIGENCE</small>
+    </a>
+    <nav class="ff-nav">
+      <a href="#" class="active">Home</a>
+      <a href="#">Markets</a>
+      <a href="#">Fintech</a>
+      <a href="#">Crypto</a>
+      <a href="#">Regulation</a>
+      <a href="#">Brokers</a>
+      <a href="#">Technology</a>
+      <a href="#">Opinion</a>
+    </nav>
+    <div class="ff-actions">
+      <button class="ff-search" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <button class="ff-subscribe">Subscribe</button>
+      <button class="ff-menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ BREAKING NEWS ============ -->
+<div class="ff-breaking">
+  <div class="container mx-auto px-6 ff-breaking-inner">
+    <span class="ff-breaking-label">Breaking</span>
+    <div class="ff-breaking-track">
+      <div class="ff-breaking-content">
+        <a href="#">Blockstream refuses to pay bounty for remaining 598.5 BTC</a>
+        <a href="#">CPI hits 3.4%, 30-year Treasury yield at 19-year high</a>
+        <a href="#">The Rise of the 'Everything Exchange': Bitget, OKX and Binance weigh in</a>
+        <a href="#">AI for Market Surveillance in Crypto: Reducing Wash Trading Risk</a>
+        <a href="#">SEC finalizes new crypto custody rules for institutional investors</a>
+      </div>
+      <div class="ff-breaking-content" aria-hidden="true">
+        <a href="#">Blockstream refuses to pay bounty for remaining 598.5 BTC</a>
+        <a href="#">CPI hits 3.4%, 30-year Treasury yield at 19-year high</a>
+        <a href="#">The Rise of the 'Everything Exchange': Bitget, OKX and Binance weigh in</a>
+        <a href="#">AI for Market Surveillance in Crypto: Reducing Wash Trading Risk</a>
+        <a href="#">SEC finalizes new crypto custody rules for institutional investors</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAIN ============ -->
+<main>
+<div class="container mx-auto px-6">
+
+<!-- HERO + SIDE STORIES -->
+<div class="ff-hero">
+  <a href="#" class="ff-hero-main">
+    <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/2025/12/Blockstream.png" alt="Blockstream">
+    <div class="ff-hero-content">
+      <span class="ff-tag">Crypto</span>
+      <h1>Blockstream Refuses to Pay Bounty for Remaining 598.5 BTC</h1>
+      <p>The Bitcoin infrastructure firm says the recovery effort has crossed a legal threshold and the bounty will not be released to the finder.</p>
+      <div class="ff-meta">
+        <span><b>By Daniel Thompson</b></span>
+        <span>•</span>
+        <span>December 18, 2025</span>
+        <span>•</span>
+        <span>5 min read</span>
+      </div>
+    </div>
+  </a>
+  <div class="ff-hero-side">
+    <a href="#" class="ff-side-card">
+      <div class="img-wrap">
+        <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/2026/07/Fed-Braces-for-CPI-Data-That-Could-Rattle-Crypto-jpg.webp" alt="CPI">
+      </div>
+      <div class="ff-side-card-body">
+        <span class="ff-tag" style="margin-bottom:8px">Markets</span>
+        <h3>CPI Hits 3.4%, 30-Year Treasury Yield at 19-Year High</h3>
+        <div class="meta">July 11, 2026</div>
+      </div>
+    </a>
+    <a href="#" class="ff-side-card">
+      <div class="img-wrap">
+        <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/elementor/thumbs/The-Rise-of-the-%E2%80%98Everything-Exchange-scaled-rt7dkyi6em6njuq3pn3wvveucba7s81hwmjpvetzn0-353x.png" alt="Everything Exchange">
+      </div>
+      <div class="ff-side-card-body">
+        <span class="ff-tag" style="background:#c79b50;margin-bottom:8px">Featured</span>
+        <h3>The Rise of the 'Everything Exchange': Bitget, OKX and Binance Weigh In</h3>
+        <div class="meta">December 12, 2025</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- LEADERBOARD AD -->
+<div class="ff-ad-slot ff-ad-leader mb-8">Advertisement · 970×90 Leaderboard</div>
+
+<!-- LAYOUT: CONTENT + SIDEBAR -->
+<div class="ff-layout">
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <div>
+
+    <!-- CATEGORY TABS -->
+    <div class="ff-cat-tabs">
+      <div class="ff-cat-tab active">Editor's Picks</div>
+      <div class="ff-cat-tab">Latest</div>
+      <div class="ff-cat-tab">Fintech</div>
+      <div class="ff-cat-tab">Crypto</div>
+      <div class="ff-cat-tab">Regulation</div>
+      <div class="ff-cat-tab">Technology</div>
+    </div>
+
+    <!-- EDITOR PICKS — 3 COLUMN GRID -->
+    <div class="ff-post-grid">
+      <article class="ff-post-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/2025/12/Blockstream.png" alt="">
+          <span class="ff-tag">Crypto</span>
+        </a>
+        <div class="ff-post-card-body">
+          <h3>Blockstream Refuses to Pay Bounty for Remaining 598.5 BTC</h3>
+          <p>The Bitcoin infrastructure firm says the recovery effort has crossed a legal threshold.</p>
+          <div class="meta"><span><b>Crypto</b></span><span>•</span><span>Dec 18, 2025</span></div>
+        </div>
+      </article>
+      <article class="ff-post-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/2026/07/Fed-Braces-for-CPI-Data-That-Could-Rattle-Crypto-jpg.webp" alt="">
+          <span class="ff-tag">Markets</span>
+        </a>
+        <div class="ff-post-card-body">
+          <h3>CPI Hits 3.4%, 30-Year Treasury Yield at 19-Year High</h3>
+          <p>Bond markets react sharply as core inflation overshoots consensus for the third straight month.</p>
+          <div class="meta"><span><b>Markets</b></span><span>•</span><span>Jul 11, 2026</span></div>
+        </div>
+      </article>
+      <article class="ff-post-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/elementor/thumbs/The-Rise-of-the-%E2%80%98Everything-Exchange-scaled-rt7dkyi6em6njuq3pn3wvveucba7s81hwmjpvetzn0-353x.png" alt="">
+          <span class="ff-tag" style="background:#c79b50">Featured</span>
+        </a>
+        <div class="ff-post-card-body">
+          <h3>The Rise of the 'Everything Exchange': Bitget, OKX and Binance Weigh In</h3>
+          <p>Three of the world's largest exchanges discuss the convergence of spot, derivatives and DeFi.</p>
+          <div class="meta"><span><b>Featured</b></span><span>•</span><span>Dec 12, 2025</span></div>
+        </div>
+      </article>
+      <article class="ff-post-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/2025/12/Blockstream.png" alt="">
+          <span class="ff-tag">Crypto</span>
+        </a>
+        <div class="ff-post-card-body">
+          <h3>AI for Market Surveillance in Crypto: Reducing Wash Trading & Manipulation</h3>
+          <p>How new MiCA-aligned surveillance stacks are catching on-chain wash patterns in real time.</p>
+          <div class="meta"><span><b>DeFi</b></span><span>•</span><span>Dec 8, 2025</span></div>
+        </div>
+      </article>
+      <article class="ff-post-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/2026/07/Fed-Braces-for-CPI-Data-That-Could-Rattle-Crypto-jpg.webp" alt="">
+          <span class="ff-tag">Fintech</span>
+        </a>
+        <div class="ff-post-card-body">
+          <h3>Stripe Returns to Crypto: A New Stablecoin Settlement Layer Goes Live</h3>
+          <p>The payments giant quietly resumes crypto on-ramp support after a six-year pause.</p>
+          <div class="meta"><span><b>Fintech</b></span><span>•</span><span>Jul 4, 2026</span></div>
+        </div>
+      </article>
+      <article class="ff-post-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/elementor/thumbs/The-Rise-of-the-%E2%80%98Everything-Exchange-scaled-rt7dkyi6em6njuq3pn3wvveucba7s81hwmjpvetzn0-353x.png" alt="">
+          <span class="ff-tag">Regulation</span>
+        </a>
+        <div class="ff-post-card-body">
+          <h3>FCA Warns 50+ Unauthorised Firms Targeting UK Crypto Investors</h3>
+          <p>The UK regulator's latest sweep identifies a record number of clone firms impersonating licensed venues.</p>
+          <div class="meta"><span><b>Regulation</b></span><span>•</span><span>Jun 28, 2026</span></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- IN-FEED AD -->
+    <div class="ff-ad-slot ff-ad-leader my-8">Advertisement · 728×90 In-Article</div>
+
+    <!-- FEATURED LARGE ROW -->
+    <div class="ff-section-head">
+      <h2>Editor's Choice</h2>
+      <a href="#">View All →</a>
+    </div>
+    <div class="ff-featured-row">
+      <article class="ff-featured-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/2025/12/Blockstream.png" alt="">
+          <span class="ff-tag">Crypto</span>
+        </a>
+        <div class="ff-featured-card-body">
+          <h3>The Anatomy of a $4B Crypto Seizure: How the DOJ Tracked the Funds</h3>
+          <p>An exclusive reconstruction of the largest crypto seizure in US history, pieced together from court filings and on-chain forensics.</p>
+          <div class="meta" style="font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-top:10px"><b>Crypto</b> • 12 min read</div>
+        </div>
+      </article>
+      <article class="ff-featured-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/elementor/thumbs/The-Rise-of-the-%E2%80%98Everything-Exchange-scaled-rt7dkyi6em6njuq3pn3wvveucba7s81hwmjpvetzn0-353x.png" alt="">
+          <span class="ff-tag" style="background:#c79b50">Featured</span>
+        </a>
+        <div class="ff-featured-card-body">
+          <h3>Inside the Liquidity Wars: Why Tier-1 Banks Are Re-Entering FX</h3>
+          <p>After a decade of retreat, bulge-bracket banks are quietly rebuilding FX prime brokerage capacity — here's why.</p>
+          <div class="meta" style="font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-top:10px"><b>Markets</b> • 9 min read</div>
+        </div>
+      </article>
+    </div>
+
+    <!-- MARKETS SECTION -->
+    <div class="ff-section-head">
+      <h2>Markets &amp; Trading</h2>
+      <a href="#">View All →</a>
+    </div>
+    <div class="ff-post-grid">
+      <article class="ff-post-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/2026/07/Fed-Braces-for-CPI-Data-That-Could-Rattle-Crypto-jpg.webp" alt="">
+          <span class="ff-tag">Markets</span>
+        </a>
+        <div class="ff-post-card-body">
+          <h3>ECB Rate Decision: Euro Slips as Lagarde Hints at 'Measured Cuts'</h3>
+          <p>The euro dipped 40 pips against the dollar after the ECB president signalled a slower easing path.</p>
+          <div class="meta"><span><b>FX</b></span><span>•</span><span>Jul 25, 2026</span></div>
+        </div>
+      </article>
+      <article class="ff-post-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/elementor/thumbs/The-Rise-of-the-%E2%80%98Everything-Exchange-scaled-rt7dkyi6em6njuq3pn3wvveucba7s81hwmjpvetzn0-353x.png" alt="">
+          <span class="ff-tag">Brokers</span>
+        </a>
+        <div class="ff-post-card-body">
+          <h3>MT5 vs cTrader: Which Platform Wins for Prop Firm Traders in 2026?</h3>
+          <p>A deep comparison of execution, slippage, and rule enforcement across the two leading platforms.</p>
+          <div class="meta"><span><b>Technology</b></span><span>•</span><span>Jul 22, 2026</span></div>
+        </div>
+      </article>
+      <article class="ff-post-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/2025/12/Blockstream.png" alt="">
+          <span class="ff-tag">Crypto</span>
+        </a>
+        <div class="ff-post-card-body">
+          <h3>Bitcoin ETFs Cross $100B AUM Milestone — But Inflows Are Concentrated</h3>
+          <p>Three funds now hold 78% of all spot BTC ETF assets under management.</p>
+          <div class="meta"><span><b>Crypto</b></span><span>•</span><span>Jul 19, 2026</span></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- LEADERBOARD AD -->
+    <div class="ff-ad-slot ff-ad-leader my-8">Advertisement · 970×90</div>
+
+    <!-- OPINION -->
+    <div class="ff-section-head">
+      <h2>Opinion &amp; Analysis</h2>
+      <a href="#">View All →</a>
+    </div>
+    <div class="ff-featured-row">
+      <article class="ff-featured-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/2026/07/Fed-Braces-for-CPI-Data-That-Could-Rattle-Crypto-jpg.webp" alt="">
+          <span class="ff-tag" style="background:#0c1424">Opinion</span>
+        </a>
+        <div class="ff-featured-card-body">
+          <h3>Why Prop Firm Regulation Will Be the Defining Story of 2027</h3>
+          <p>The prop trading industry has outgrown its legal grey zone. Here's what comes next.</p>
+          <div class="meta" style="font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-top:10px"><b>By Andrew Hallam</b> • 7 min read</div>
+        </div>
+      </article>
+      <article class="ff-featured-card">
+        <a href="#" class="img-wrap">
+          <img src="https://cdn-iledkkd.nitrocdn.com/JgVqWxjBXAxXZqxnJHbtcSOOAHYjFqOB/assets/images/optimized/rev-161d2f8/financefeeds.com/wp-content/uploads/elementor/thumbs/The-Rise-of-the-%E2%80%98Everything-Exchange-scaled-rt7dkyi6em6njuq3pn3wvveucba7s81hwmjpvetzn0-353x.png" alt="">
+          <span class="ff-tag" style="background:#0c1424">Opinion</span>
+        </a>
+        <div class="ff-featured-card-body">
+          <h3>The Quiet Death of the ECN Model in Retail FX</h3>
+          <p>Why most retail brokers quietly abandoned true ECN execution — and what replaced it.</p>
+          <div class="meta" style="font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-top:10px"><b>By Maria Volkov</b> • 11 min read</div>
+        </div>
+      </article>
+    </div>
+
+    <!-- LOAD MORE -->
+    <div class="text-center my-10">
+      <button class="bg-ffNavy text-white px-8 py-3 rounded font-bold uppercase tracking-wider text-sm hover:bg-ffRed transition">Load More Articles</button>
+    </div>
+  </div>
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="ff-side">
+    <!-- AD -->
+    <div class="ff-ad-slot ff-ad-300">Advertisement · 300×250</div>
+
+    <!-- NEWSLETTER -->
+    <div class="ff-newsletter">
+      <h3>The Daily Edge</h3>
+      <p>Sharp, independent reporting on FX, fintech and crypto — delivered to your inbox every morning.</p>
+      <form class="email-row" onsubmit="return false;">
+        <input type="email" placeholder="Your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+
+    <!-- TRENDING -->
+    <div class="ff-side-widget">
+      <h3>Trending Now</h3>
+      <a href="#" class="ff-trending-item">
+        <span class="ff-trending-num">01</span>
+        <div>
+          <h4>Blockstream refuses bounty for 598.5 BTC recovery</h4>
+          <div class="meta">Crypto • 5h ago</div>
+        </div>
+      </a>
+      <a href="#" class="ff-trending-item">
+        <span class="ff-trending-num">02</span>
+        <div>
+          <h4>CPI hits 3.4%, 30-year yield at 19-year high</h4>
+          <div class="meta">Markets • 9h ago</div>
+        </div>
+      </a>
+      <a href="#" class="ff-trending-item">
+        <span class="ff-trending-num">03</span>
+        <div>
+          <h4>Bitget, OKX, Binance discuss 'Everything Exchange'</h4>
+          <div class="meta">Featured • 1d ago</div>
+        </div>
+      </a>
+      <a href="#" class="ff-trending-item">
+        <span class="ff-trending-num">04</span>
+        <div>
+          <h4>AI surveillance cracks down on crypto wash trading</h4>
+          <div class="meta">DeFi • 1d ago</div>
+        </div>
+      </a>
+      <a href="#" class="ff-trending-item">
+        <span class="ff-trending-num">05</span>
+        <div>
+          <h4>SEC finalizes crypto custody rules for institutions</h4>
+          <div class="meta">Regulation • 2d ago</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- LIVE MARKETS -->
+    <div class="ff-side-widget">
+      <h3>Live Markets</h3>
+      <div class="ff-market-row"><span class="ff-market-pair">EUR/USD</span><span class="ff-market-price">1.0872</span><span class="ff-market-change ff-up">+0.34%</span></div>
+      <div class="ff-market-row"><span class="ff-market-pair">GBP/USD</span><span class="ff-market-price">1.2734</span><span class="ff-market-change ff-down">-0.12%</span></div>
+      <div class="ff-market-row"><span class="ff-market-pair">USD/JPY</span><span class="ff-market-price">156.82</span><span class="ff-market-change ff-up">+0.41%</span></div>
+      <div class="ff-market-row"><span class="ff-market-pair">XAU/USD</span><span class="ff-market-price">2,427.10</span><span class="ff-market-change ff-up">+1.08%</span></div>
+      <div class="ff-market-row"><span class="ff-market-pair">BTC/USD</span><span class="ff-market-price">68,420</span><span class="ff-market-change ff-down">-2.14%</span></div>
+      <div class="ff-market-row"><span class="ff-market-pair">ETH/USD</span><span class="ff-market-price">3,580</span><span class="ff-market-change ff-up">+0.86%</span></div>
+    </div>
+
+    <!-- AD -->
+    <div class="ff-ad-slot ff-ad-300">Advertisement · 300×600</div>
+
+    <!-- TAGS -->
+    <div class="ff-side-widget">
+      <h3>Popular Tags</h3>
+      <div class="ff-tags">
+        <a href="#" class="ff-tag-pill">#bitcoin</a>
+        <a href="#" class="ff-tag-pill">#ethereum</a>
+        <a href="#" class="ff-tag-pill">#SEC</a>
+        <a href="#" class="ff-tag-pill">#FCA</a>
+        <a href="#" class="ff-tag-pill">#MiCA</a>
+        <a href="#" class="ff-tag-pill">#liquidity</a>
+        <a href="#" class="ff-tag-pill">#MT5</a>
+        <a href="#" class="ff-tag-pill">#DeFi</a>
+        <a href="#" class="ff-tag-pill">#stablecoins</a>
+        <a href="#" class="ff-tag-pill">#prop-firms</a>
+        <a href="#" class="ff-tag-pill">#prop-trading</a>
+        <a href="#" class="ff-tag-pill">#binance</a>
+        <a href="#" class="ff-tag-pill">#okx</a>
+        <a href="#" class="ff-tag-pill">#bitget</a>
+      </div>
+    </div>
+  </aside>
+</div>
+
+</div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container mx-auto px-6 ff-footer-grid">
+    <div class="ff-footer-brand">
+      <a href="#" class="ff-logo">
+        FinanceFeeds
+        <small>TRADERS' INTELLIGENCE</small>
+      </a>
+      <p>Independent journalism on FX trading, broker technology, fintech regulation and crypto markets. Sharp, sceptical, sourced.</p>
+      <div class="ff-footer-social">
+        <a href="#" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.8c-.7.3-1.5.5-2.4.6.9-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1-1.5-1.6-4-1.7-5.6-.2-1 1-1.5 2.4-1.2 3.8C8.7 8.5 5.7 7 3.7 4.5c-1.1 1.8-.5 4.1 1.2 5.2-.7 0-1.3-.2-1.9-.5 0 1.9 1.4 3.6 3.3 4-.6.2-1.2.2-1.9.1.5 1.6 2 2.7 3.8 2.8-1.7 1.4-3.9 1.9-6 1.7 1.9 1.2 4.1 1.9 6.3 1.9 7.5 0 11.7-6.3 11.5-12 0-.2 0-.4-.1-.6.8-.6 1.5-1.3 2.1-2.2z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5C2.2 0 0 2.2 0 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5V5c0-2.8-2.2-5-5-5zM8 19H5V8h3v11zM6.5 6.7C5.5 6.7 4.7 5.9 4.7 5s.8-1.7 1.8-1.7S8.3 4 8.3 5s-.8 1.7-1.8 1.7zM20 19h-3v-5.6c0-1.4-.5-2.3-1.7-2.3-.9 0-1.5.6-1.7 1.2-.1.2-.1.5-.1.8V19h-3V8h3v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 3.5 1.3 3.5 4.1V19z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.5c-1 .3-1.7 1.1-2 2.1C0 8 0 12 0 12s0 4 .5 5.8c.3 1 1 1.8 2 2.1 1.9.5 9.5.5 9.5.5s7.6 0 9.5-.5c1-.3 1.7-1.1 2-2.1.5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <h4>Markets</h4>
+      <a href="#">FX</a>
+      <a href="#">Equities</a>
+      <a href="#">Commodities</a>
+      <a href="#">Crypto</a>
+      <a href="#">Bonds</a>
+    </div>
+    <div>
+      <h4>Fintech</h4>
+      <a href="#">Payments</a>
+      <a href="#">Banking</a>
+      <a href="#">Lending</a>
+      <a href="#">Wealthtech</a>
+      <a href="#">Insurtech</a>
+    </div>
+    <div>
+      <h4>Regulation</h4>
+      <a href="#">SEC</a>
+      <a href="#">FCA</a>
+      <a href="#">ESMA</a>
+      <a href="#">MAS</a>
+      <a href="#">ASIC</a>
+    </div>
+    <div>
+      <h4>About</h4>
+      <a href="#">Editorial Policy</a>
+      <a href="#">Masthead</a>
+      <a href="#">Contact</a>
+      <a href="#">Advertise</a>
+      <a href="#">Careers</a>
+    </div>
+  </div>
+  <div class="container mx-auto px-6 ff-footer-bottom">
+    <span>© 2024–2026 FinanceFeeds. All rights reserved.</span>
+    <span>Trading involves risk. Past performance is not indicative of future results.</span>
+  </div>
+</footer>
+
+<script>
+  // Category tab switching
+  document.querySelectorAll('.ff-cat-tabs').forEach(group => {
+    const tabs = group.querySelectorAll('.ff-cat-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+  });
+
+  // Live market price tick (subtle wiggle)
+  document.querySelectorAll('.ff-market-row').forEach(row => {
+    const price = row.querySelector('.ff-market-price');
+    const change = row.querySelector('.ff-market-change');
+    setInterval(() => {
+      const current = parseFloat(price.textContent.replace(/,/g, ''));
+      const wiggle = (Math.random() - 0.5) * 0.0005 * current;
+      const next = current + wiggle;
+      price.textContent = next > 100 ? next.toFixed(2) : next.toFixed(4);
+    }, 4000 + Math.random() * 4000);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FxDailyInfo — Forex No Deposit Bonus, Deposit Bonus & Broker Reviews</title>
+<meta name="description" content="Latest Forex no deposit bonus, deposit bonus, broker reviews and promotions. Updated daily.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750;800;850&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#0b1730',
+          navy: '#06172f',
+          navy2: '#0d2545',
+          blue: '#14b869',
+          gold: '#14b869',
+          gold2: '#26e986',
+          bg: '#f6f8fb',
+          card: '#ffffff',
+          line: '#e7ebf2',
+          muted: '#718096',
+          green: '#159a68',
+          red: '#d94d5b',
+        },
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Arial', 'sans-serif'],
+          serif: ['Playfair Display', 'serif'],
+        },
+        borderRadius: { 'r14': '14px' },
+      }
+    }
+  }
+</script>
+<style>
+  /* =========================================
+     Custom CSS — beyond Tailwind utilities
+     ========================================= */
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { font-feature-settings: "ss01","cv01","cv02"; }
+
+  /* Topbar */
+  .topbar { background: #06152b; color: #b9c7d8; font-size: 11px; height: 34px; }
+  .topbar .container { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+  .topbar .left > * + * { margin-left: 24px; }
+  .market-status { display: inline-flex; align-items: center; }
+  .market-status i { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin-right: 7px; background: #159a68; box-shadow: 0 0 0 3px rgba(21,154,104,.25); }
+  .market-status strong { color: #159a68; margin-left: 4px; font-weight: 700; }
+  .session-cd { color: #7f93aa; }
+  .session-cd b { color: #fff; margin-left: 4px; font-variant-numeric: tabular-nums; }
+  .topbar .right a { color: #b9c7d8; }
+  .topbar .right a:hover { color: #fff; }
+  .topbar .right > * + a { margin-left: 24px; }
+  .topbar .divider { width: 1px; height: 14px; background: rgba(255,255,255,.15); display: inline-block; vertical-align: middle; margin: 0 14px; }
+  .topbar-social a { display: inline-flex; align-items: center; }
+
+  /* Ticker */
+  .ticker { background: #0b2038; height: 30px; overflow: hidden; border-top: 1px solid rgba(255,255,255,.08); }
+  .ticker-inner { display: flex; align-items: center; gap: 16px; height: 100%; }
+  .ticker-label { font-size: 11px; font-weight: 700; color: #fff; padding-right: 16px; border-right: 1px solid rgba(255,255,255,.15); white-space: nowrap; flex-shrink: 0; }
+  .ticker-viewport { flex: 1 1 auto; overflow: hidden; }
+  .ticker-track { display: flex; width: max-content; animation: ticker-scroll 110s linear infinite; }
+  .ticker-viewport:hover .ticker-track { animation-play-state: paused; }
+  .ticker-content { display: flex; flex-shrink: 0; }
+  .ticker-content a { white-space: nowrap; margin-right: 40px; font-size: 11px; color: #b9c7d8; }
+  .ticker-content a:hover { color: #fff; }
+  @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
+
+  /* Header */
+  .site-header { background: #fff; border-bottom: 1px solid #e7ebf2; position: sticky; top: 0; z-index: 100; }
+  .head { display: flex; align-items: center; gap: 28px; height: 70px; }
+  .logo-text { font-size: 26px; font-weight: 900; letter-spacing: -1.5px; line-height: 1; color: #0b1730; white-space: nowrap; }
+  .logo-text i { font-style: normal; color: #14b869; }
+  .logo-text small { display: block; font-size: 7px; letter-spacing: 1.6px; color: #78859a; margin-top: 5px; font-weight: 700; }
+  .head-menu { display: flex; align-items: center; gap: 2px; flex: 1; min-width: 0; }
+  .head-menu a { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 750; color: #33435d; padding: 10px 12px; border-radius: 7px; }
+  .head-menu a:hover, .head-menu a.active { color: #14b869; background: #f3fbf7; }
+  .head-actions { display: flex; gap: 9px; flex-shrink: 0; }
+  .head-actions button { height: 40px; padding: 0 15px; border: 1px solid #e7ebf2; background: #fff; border-radius: 8px; font-weight: 750; color: #0b1730; font-size: 12px; cursor: pointer; }
+  .head-actions .btn-primary { background: #14b869; color: #fff; border-color: #14b869; }
+  .head-actions .btn-primary:hover { background: #119955; border-color: #119955; }
+  .nav-toggle { display: none; flex-direction: column; gap: 4px; }
+  .nav-toggle span { width: 18px; height: 2px; background: #0b1730; border-radius: 2px; }
+
+  /* Layout */
+  main { padding: 22px 0 50px; }
+  .layout { display: grid; grid-template-columns: minmax(0,1fr) 315px; gap: 20px; }
+
+  /* Hero */
+  .hero {
+    height: 365px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(115deg, #06162d 0%, #09284d 62%, #174a7e 100%);
+    position: relative;
+    color: #fff;
+    padding: 42px;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(38,233,134,.28), transparent 33%), linear-gradient(90deg, transparent 40%, rgba(255,255,255,.02));
+  }
+  .hero-content { position: relative; z-index: 3; max-width: 545px; }
+  .eyebrow { display: inline-flex; gap: 7px; align-items: center; color: #26e986; border: 1px solid rgba(38,233,134,.45); background: rgba(38,233,134,.10); padding: 6px 10px; border-radius: 30px; font-size: 9px; font-weight: 850; text-transform: uppercase; letter-spacing: .5px; }
+  .hero h1 { font-size: 42px; line-height: 1.02; letter-spacing: -1.8px; margin: 18px 0 10px; font-weight: 800; }
+  .hero p { color: #c5d2e2; font-size: 13px; max-width: 510px; margin: 0; }
+  .hero-buttons { display: flex; gap: 9px; margin-top: 22px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 42px; padding: 0 17px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; transition: all .15s ease; }
+  .btn.gold { background: #26e986; color: #07172f; }
+  .btn.gold:hover { background: #1cd479; }
+  .btn.ghost { border: 1px solid rgba(255,255,255,.25); color: #fff; background: rgba(255,255,255,.05); }
+  .btn.ghost:hover { background: rgba(255,255,255,.12); }
+  .hero-chart {
+    position: absolute; right: 27px; bottom: 26px; width: 375px; height: 215px;
+    border: 1px solid rgba(255,255,255,.12); border-radius: 13px; background: rgba(4,17,34,.48);
+    z-index: 2; padding: 17px;
+  }
+  .chart-head { display: flex; justify-content: space-between; font-size: 9px; color: #9eb0c5; }
+  .chart-price { font-size: 19px; font-weight: 850; margin-top: 4px; }
+  .chart-price span { font-size: 9px; color: #26e986; margin-left: 6px; }
+  .chart-grid { height: 125px; margin-top: 8px; position: relative; background: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 100% 25px, 55px 100%; border-radius: 6px; overflow: hidden; }
+  .chart-line { position: absolute; left: 0; right: 0; top: 15px; height: 100%; background: linear-gradient(140deg, transparent 0 12%, #2fe6a0 13%, transparent 14% 25%, #2fe6a0 26%, transparent 27% 39%, #2fe6a0 40%, transparent 41% 52%, #2fe6a0 53%, transparent 54% 68%, #2fe6a0 69%, transparent 70% 79%, #2fe6a0 80%, transparent 81%); opacity: .9; }
+
+  /* Section */
+  .section { margin-top: 24px; }
+  .section.no-margin-top { margin-top: 0; }
+  .section-title { display: flex; align-items: end; justify-content: space-between; margin-bottom: 11px; gap: 12px; }
+  .section-title h2 { margin: 0; font-size: 19px; letter-spacing: -.5px; font-weight: 800; color: #0b1730; }
+  .section-title p { margin: 3px 0 0; color: #718096; font-size: 10px; }
+  .section-title a { font-size: 10px; color: #14b869; font-weight: 800; }
+  .news-heading { margin-bottom: 8px; }
+  .news-heading h1, .news-heading h2 { font-size: 15px; color: #14b869; font-weight: 600; margin: 0; letter-spacing: -.4px; }
+
+  /* Split 3 columns */
+  .split-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .recent-col { background: transparent; }
+
+  /* List row */
+  .list-row { display: grid; grid-template-columns: 62px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid #edf0f4; }
+  .list-row:last-child { border-bottom: 0; }
+  .list-row:hover h4 { color: #14b869; }
+  .logo-tile { height: 52px; border-radius: 7px; background: #07182f; color: #fff; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 8px; font-weight: 900; line-height: 1.1; overflow: hidden; }
+  .logo-tile.light { background: #f5f7fa; color: #17233b; border: 1px solid #e3e8ef; }
+  .logo-tile img { width: 100%; height: 100%; object-fit: cover; border-radius: 7px; }
+  .list-row h4 { font-size: 13px; margin: 0 0 4px; line-height: 1.3; font-weight: 600; color: #0b1730; transition: color .15s; }
+  .list-row p { font-size: 9.5px; color: #718096; margin: 0; }
+  .list-row .value { font-size: 12px; color: #14b869; font-weight: 900; white-space: nowrap; text-align: right; }
+  .list-row .date { font-size: 8px; color: #98a2b0; white-space: nowrap; margin-top: 3px; }
+
+  /* Featured broker card */
+  .featured-broker-card { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #edf0f4; gap: 12px; }
+  .featured-broker-card:last-child { border-bottom: 0; }
+  .broker-logo { width: 48px; height: 40px; border-radius: 6px; background: #07182f; border: 1px solid #e7ebf2; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+  .broker-logo img { width: 100%; height: 100%; object-fit: cover; }
+  .fbc-body { flex: 1; min-width: 0; }
+  .fbc-body h4 { font-size: 13px; margin: 0 0 2px; font-weight: 700; color: #0b1730; }
+  .fbc-body p { font-size: 10px; color: #718096; margin: 0; }
+  .fbc-visit { font-size: 10px; color: #14b869; font-weight: 850; padding: 4px 8px; border-radius: 6px; }
+  .fbc-visit:hover { background: #f3fbf7; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 3px; justify-content: center; margin-bottom: 20px; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { padding: 9px 11px; font-size: 10px; font-weight: 800; color: #7a8798; flex-shrink: 0; white-space: nowrap; background: #f1f3f9; border-radius: 50px; cursor: pointer; transition: all .15s; }
+  .tab:hover { color: #0b1730; }
+  .tab.active { background: #14b869; color: #fff; font-size: 15px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .list-grid-2col { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; }
+
+  /* Ad banners */
+  .ad-row { margin: 24px 0; }
+  .ad-banner-728x90 { background: linear-gradient(135deg, #06172f, #0d2545); height: 90px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #26e986; font-size: 12px; font-weight: 700; letter-spacing: .5px; }
+  .ad-row-split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ad-banner-half { background: linear-gradient(135deg, #06172f, #0d2545); height: 90px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #26e986; font-size: 11px; font-weight: 700; }
+  .ad-300x250 { background: linear-gradient(135deg, #06172f, #0d2545); height: 250px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #26e986; font-size: 12px; font-weight: 700; }
+
+  /* Quick links */
+  .quick { display: grid; grid-template-columns: repeat(7, 1fr); gap: 9px; margin-top: 13px; }
+  .quick-item { background: #fff; border: 1px solid #e7ebf2; border-radius: 10px; padding: 13px 5px; text-align: center; font-size: 9px; color: #516078; font-weight: 700; transition: all .2s; }
+  .quick-item:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(13,35,63,.08); }
+  .quick-item b { display: block; color: #14b869; font-size: 18px; margin-bottom: 5px; }
+
+  /* Broker grid */
+  .broker-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 18px; }
+  .broker-list-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; }
+  .broker-row { display: grid; grid-template-columns: 48px 1fr auto; gap: 10px; align-items: center; padding: 13px 0; border-bottom: 1px solid #e7ebf2; }
+  .broker-row:last-child { border-bottom: 0; }
+  .broker-row h4 { font-size: 11px; margin: 0; font-weight: 700; }
+  .post-date { color: #8995a7; font-size: 9.5px; font-weight: 700; }
+
+  /* Awards slider */
+  .awards-section { background: linear-gradient(180deg, #f5fdf9, #eafcf3); border: 1px solid #cdf3e0; border-radius: 14px; padding: 22px; }
+  .award-track { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+  .award-track::-webkit-scrollbar { display: none; }
+  .award-card { flex: 0 0 200px; background: #fff; border: 1px solid #d7f5e7; border-radius: 10px; padding: 14px; text-align: center; }
+  .award-card .medal { font-size: 28px; }
+  .award-card small { font-size: 7px; text-transform: uppercase; color: #5f8f75; font-weight: 850; }
+  .award-card h4 { font-size: 11px; margin: 5px 0; font-weight: 700; }
+  .award-card p { font-size: 9px; color: #718096; margin: 0; }
+  .award-card .badge-img { width: 80px; height: 80px; margin: 0 auto 8px; background: radial-gradient(circle, #ffd700, #b8860b); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+
+  /* Glossary */
+  .glossary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .glossary-card { background: #fff; border: 1px solid #e7ebf2; border-radius: 12px; padding: 16px; }
+  .glossary-badge { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; font-weight: 800; font-size: 13px; margin-bottom: 10px; }
+  .glossary-card h4 { font-size: 14px; margin: 0 0 6px; font-weight: 700; }
+  .glossary-card p { font-size: 11px; color: #718096; margin: 0; line-height: 1.5; }
+
+  /* Newsletter */
+  .newsletter { margin-top: 24px; background: linear-gradient(110deg, #06172f, #0c315a); border-radius: 14px; padding: 25px 28px; color: #fff; }
+  .newsletter h2 { font-size: 20px; margin: 0 0 4px; font-weight: 800; }
+  .newsletter p { font-size: 10px; color: #b9c8d9; margin: 0 0 14px; }
+  .email { display: flex; gap: 0; }
+  .email input { flex: 1; height: 40px; border: 0; padding: 0 12px; border-radius: 7px 0 0 7px; font-size: 12px; color: #0b1730; }
+  .email button { height: 40px; border: 0; background: #26e986; padding: 0 18px; border-radius: 0 7px 7px 0; font-weight: 850; font-size: 11px; cursor: pointer; color: #07172f; }
+  .email button:hover { background: #1cd479; }
+
+  /* Sidebar */
+  .side { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 90px; }
+  .side-card { background: #fff; border: 1px solid #e7ebf2; border-radius: 14px; padding: 19px; box-shadow: 0 7px 24px rgba(13,35,63,.055); }
+  .side-card h3 { font-size: 16px; margin: 0 0 14px; letter-spacing: -.3px; font-weight: 800; }
+  .field { margin-bottom: 10px; }
+  .field label { display: block; font-size: 9px; font-weight: 800; color: #7d899a; text-transform: uppercase; margin-bottom: 5px; }
+  .select { width: 100%; height: 39px; border: 1px solid #dfe5ed; border-radius: 8px; color: #7b8798; font-size: 11px; padding: 0 11px; background: #fbfcfe; }
+  .find-btn { width: 100%; height: 41px; border: 0; border-radius: 8px; background: #14b869; color: #fff; font-size: 11px; font-weight: 850; margin-top: 2px; cursor: pointer; }
+  .find-btn:hover { background: #119955; }
+  .award { background: linear-gradient(135deg, #081a35, #123d69); color: #fff; border-radius: 14px; padding: 19px; min-height: 160px; position: relative; overflow: hidden; }
+  .award::after { content: ""; position: absolute; width: 150px; height: 150px; border-radius: 50%; right: -50px; top: -45px; background: rgba(38,233,134,.12); }
+  .award h3 { font-size: 18px; margin: 0 0 6px; font-weight: 800; }
+  .award p { color: #bfcddd; font-size: 11px; max-width: 185px; margin: 0 0 14px; }
+  .award .award-btn { display: inline-block; background: #14b869; border-radius: 7px; padding: 9px 12px; font-size: 10px; font-weight: 850; color: #fff; }
+  .cup { position: absolute; right: 18px; bottom: 12px; font-size: 58px; }
+
+  /* Footer */
+  footer { background: #06172f; color: #aebed0; }
+  .footer-grid { display: grid; grid-template-columns: 1.7fr repeat(4, 1fr); gap: 45px; padding: 38px 0 28px; }
+  .footer-grid .logo { color: #fff; }
+  .footer-grid p { font-size: 11px; line-height: 1.7; max-width: 240px; }
+  .footer-grid h4 { font-size: 11px; color: #fff; margin: 0 0 11px; font-weight: 800; }
+  .footer-grid a { display: block; font-size: 11px; margin: 7px 0; color: #aebed0; }
+  .footer-grid a:hover { color: #fff; }
+  .footer-logo-text { font-size: 22px; font-weight: 900; letter-spacing: -1px; }
+  .footer-logo-text i { color: #26e986; font-style: normal; }
+  .footer-email { color: #dbe4ee !important; font-weight: 700; margin: 10px 0 2px !important; }
+  .footer-social { display: inline-flex; align-items: center; gap: 12px; margin-top: 12px; }
+  .footer-social a { display: inline-flex; color: #7f93aa; }
+  .footer-social a:hover { color: #fff; }
+  .footer-social svg { width: 15px; height: 15px; }
+  .copyright { border-top: 1px solid rgba(255,255,255,.09); padding: 14px 0; display: flex; justify-content: space-between; font-size: 11px; color: #7f93aa; }
+
+  /* Responsive */
+  @media (max-width: 1000px) {
+    .layout, .split-3, .broker-grid { grid-template-columns: 1fr; }
+    .head-menu, .head-actions .search-toggle, .head-actions .for-brokers-btn, .head-actions .btn-primary { display: none; }
+    .nav-toggle { display: flex; }
+    .hero-chart { opacity: .35; right: -30px; }
+    .quick { grid-template-columns: repeat(4, 1fr); }
+    .glossary-grid { grid-template-columns: repeat(2, 1fr); }
+    .side { position: static; }
+    .broker-list-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 650px) {
+    .topbar .session-cd, .topbar-social { display: none; }
+    .hero { height: auto; padding: 28px; }
+    .hero h1 { font-size: 32px; }
+    .hero-chart { display: none; }
+    .list-grid-2col { grid-template-columns: 1fr; }
+    .quick { grid-template-columns: repeat(2, 1fr); }
+    .glossary-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 6px; text-align: center; padding: 30px 0 20px; }
+    .footer-grid > div { padding: 14px 0; border-top: 1px solid rgba(255,255,255,.08); }
+    .footer-grid > div:first-child { border-top: 0; }
+    .copyright { flex-direction: column; gap: 4px; text-align: center; }
+    .ad-row-split { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body class="bg-bg text-ink font-sans">
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="container mx-auto px-6 flex items-center justify-between h-full">
+    <div class="left flex items-center">
+      <span>★ <a href="#" class="text-white hover:text-gold2">Global Forex Awards</a></span>
+      <span class="market-status"><i></i>Live Market: <strong>London ~ New York</strong></span>
+      <span class="session-cd">Next session in <b id="sessionCountdown">02:14:33</b></span>
+    </div>
+    <div class="right flex items-center">
+      <a href="#">Advertise</a>
+      <a href="#">Contact Us</a>
+      <span class="divider"></span>
+      <span class="topbar-social">
+        <a href="#" aria-label="Telegram"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"/></svg></a>
+        <a href="#" aria-label="WhatsApp"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"/><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"/></svg></a>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker" aria-label="Forex Awards">
+  <div class="container mx-auto px-6 ticker-inner">
+    <span class="ticker-label">🏆 Forex Awards</span>
+    <div class="ticker-viewport">
+      <div class="ticker-track">
+        <div class="ticker-content">
+          <a href="#">IQ Global Wins Most Trusted Trading Broker 2026 by FxDailyInfo</a>
+          <a href="#">IUX Awarded Best Execution Broker 2026 by FxDailyInfo</a>
+          <a href="#">Mega Fusion Awarded The Best Trading Experience 2026 by FxDailyInfo</a>
+          <a href="#">Trade W Awarded Most Trusted Forex Broker 2025 by FxDailyInfo</a>
+          <a href="#">bitcastle LLC Wins "Fastest Growing Crypto Exchange 2025"</a>
+          <a href="#">Headway Awarded Best Customer Service 2024</a>
+          <a href="#">RoboForex Best Trading Experience 2023</a>
+          <a href="#">Fusion Markets Most Innovative Broker 2023</a>
+        </div>
+        <div class="ticker-content" aria-hidden="true">
+          <a href="#">IQ Global Wins Most Trusted Trading Broker 2026 by FxDailyInfo</a>
+          <a href="#">IUX Awarded Best Execution Broker 2026 by FxDailyInfo</a>
+          <a href="#">Mega Fusion Awarded The Best Trading Experience 2026 by FxDailyInfo</a>
+          <a href="#">Trade W Awarded Most Trusted Forex Broker 2025 by FxDailyInfo</a>
+          <a href="#">bitcastle LLC Wins "Fastest Growing Crypto Exchange 2025"</a>
+          <a href="#">Headway Awarded Best Customer Service 2024</a>
+          <a href="#">RoboForex Best Trading Experience 2023</a>
+          <a href="#">Fusion Markets Most Innovative Broker 2023</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="container mx-auto px-6 head">
+    <a href="#" class="logo-text">
+      Fx<i>Daily</i>Info
+      <small>FOREX BONUS HUB</small>
+    </a>
+    <nav class="head-menu">
+      <a href="#" class="active">Home</a>
+      <a href="#">Forex Bonus ▾</a>
+      <a href="#">Crypto Bonus ▾</a>
+      <a href="#">Brokers</a>
+      <a href="#">Reviews</a>
+      <a href="#">Blog</a>
+      <a href="#">Awards</a>
+    </nav>
+    <div class="head-actions">
+      <button class="search-toggle" aria-label="Search">⌕</button>
+      <button class="for-brokers-btn">For Brokers</button>
+      <button class="btn-primary">Find a Bonus</button>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main>
+<div class="container mx-auto px-6">
+
+<!-- HERO + SIDEBAR -->
+<div class="layout">
+  <div>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">● Updated Daily · Verified Offers</span>
+        <h1>Find the Best Forex No Deposit &amp; Deposit Bonus</h1>
+        <p>Discover hand-picked broker bonuses, in-depth reviews, and exclusive promotions. Updated daily by our editorial team.</p>
+        <div class="hero-buttons">
+          <a class="btn gold" href="#">Find a Bonus →</a>
+          <a class="btn ghost" href="#">Compare Brokers</a>
+        </div>
+      </div>
+      <div class="hero-chart">
+        <div class="chart-head">
+          <span>EUR/USD · 1H</span>
+          <span style="color:#26e986">+0.34%</span>
+        </div>
+        <div class="chart-price">1.0872 <span>↑</span></div>
+        <div class="chart-grid">
+          <div class="chart-line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3-COLUMN: Latest Bonuses / Featured Brokers / Trending Bonus -->
+    <section class="section">
+      <div class="split-3">
+        <!-- COL 1: LATEST BONUSES -->
+        <div class="split-col">
+          <div class="recent-col">
+            <div class="news-heading"><h1>Latest Bonuses</h1></div>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/55fa93c6-da93-4c0a-ac44-869cc7d27.webp" alt="Vantage"></div>
+              <div>
+                <h4>Vantage Markets Refer a Friend: Earn Up To $250 Cash Bonus</h4>
+                <p>September 5, 2026</p>
+              </div>
+              <span class="value">$250</span>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/6c810892-670e-4144-b123-804c31b3a0f8.webp" alt="Moneta"></div>
+              <div>
+                <h4>Claim the Moneta Markets 20% Redeposit Bonus</h4>
+                <p>September 4, 2026</p>
+              </div>
+              <span class="value">20%</span>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/Dinero-Markets-20-Deposit-Bonus.webp" alt="Dinero"></div>
+              <div>
+                <h4>Dinero Markets 20% Exclusive Deposit Bonus</h4>
+                <p>September 3, 2026</p>
+              </div>
+              <span class="value">20%</span>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/AUS-GLOBAL-23-No-Deposit-Bonus.webp" alt="AUS Global"></div>
+              <div>
+                <h4>AUS GLOBAL $23 No Deposit Bonus – Trade with Free Credit</h4>
+                <p>September 3, 2026</p>
+              </div>
+              <span class="value">$23</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- COL 2: FEATURED BROKERS -->
+        <div class="split-col">
+          <div class="recent-col">
+            <div class="news-heading"><h2>Featured Brokers</h2></div>
+            <div class="featured-broker-card">
+              <a href="#" class="flex items-center gap-3 flex-1 min-w-0">
+                <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/07/Weby-Markets-logo.webp" alt="Weby"></div>
+                <div class="fbc-body">
+                  <h4>Weby Markets</h4>
+                  <p>Min deposit $10 · Saint Lucia</p>
+                </div>
+              </a>
+              <a href="#" class="fbc-visit">Visit →</a>
+            </div>
+            <div class="featured-broker-card">
+              <a href="#" class="flex items-center gap-3 flex-1 min-w-0">
+                <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/08/pepperstone.png" alt="Pepperstone"></div>
+                <div class="fbc-body">
+                  <h4>Pepperstone</h4>
+                  <p>Min deposit USD 200 · Australia</p>
+                </div>
+              </a>
+              <a href="#" class="fbc-visit">Visit →</a>
+            </div>
+            <div class="featured-broker-card">
+              <a href="#" class="flex items-center gap-3 flex-1 min-w-0">
+                <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/07/roboforex.jpeg" alt="RoboForex"></div>
+                <div class="fbc-body">
+                  <h4>RoboForex</h4>
+                  <p>Min deposit $10 · Belize</p>
+                </div>
+              </a>
+              <a href="#" class="fbc-visit">Visit →</a>
+            </div>
+            <div class="featured-broker-card">
+              <a href="#" class="flex items-center gap-3 flex-1 min-w-0">
+                <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/05/Finex.webp" alt="Finex"></div>
+                <div class="fbc-body">
+                  <h4>Finex</h4>
+                  <p>Min deposit $10 · Indonesia</p>
+                </div>
+              </a>
+              <a href="#" class="fbc-visit">Visit →</a>
+            </div>
+            <div class="featured-broker-card">
+              <a href="#" class="flex items-center gap-3 flex-1 min-w-0">
+                <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/01/headway.jpeg" alt="Headway"></div>
+                <div class="fbc-body">
+                  <h4>Headway</h4>
+                  <p>Min deposit $1 · South Africa</p>
+                </div>
+              </a>
+              <a href="#" class="fbc-visit">Visit →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- COL 3: TRENDING BONUS -->
+        <div class="split-col">
+          <div class="recent-col">
+            <div class="news-heading"><h2>Trending Bonus</h2></div>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/AUS-GLOBAL-23-No-Deposit-Bonus.webp" alt="AUS Global"></div>
+              <div><h4>AUS GLOBAL $23 No Deposit Bonus</h4><p>September 3, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/Liquid-Brokers-30-No-Deposit-Bonus.webp" alt="Liquid"></div>
+              <div><h4>Liquid Brokers $30 Forex No Deposit Bonus</h4><p>September 3, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/TheFXBuddy-80USD-No-Deposit-Bonus.webp" alt="TheFXBuddy"></div>
+              <div><h4>TheFXBuddy $80 Forex No Deposit Bonus</h4><p>September 3, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/07/Weby-Markets-25-USD-No-Deposit-Bonus.webp" alt="Weby"></div>
+              <div><h4>Weby Markets $25 No Deposit Bonus</h4><p>July 28, 2026</p></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 900x90 AD -->
+    <div class="ad-row">
+      <div class="ad-banner-728x90">★ Advertisement · 900×90 banner slot ★</div>
+    </div>
+
+    <!-- LATEST BONUSES TABBED SECTION -->
+    <section class="section">
+      <div class="section-title">
+        <div><h2>Latest Bonuses</h2><p>Fresh offers and broker promotions.</p></div>
+        <a href="#">View All →</a>
+      </div>
+      <div class="bg-white rounded-r14 p-5 border border-line">
+        <div class="tabs">
+          <button class="tab active" data-tab="all">All Bonuses</button>
+          <button class="tab" data-tab="forex-competition">Forex Competition</button>
+          <button class="tab" data-tab="forex-deposit-bonus">Forex Deposit Bonus</button>
+          <button class="tab" data-tab="no-deposit-bonus">Forex No Deposit Bonus</button>
+          <button class="tab" data-tab="forex-rebate">Forex Rebate</button>
+          <button class="tab" data-tab="loyalty-program">Loyalty Program</button>
+        </div>
+        <!-- ALL -->
+        <div class="tab-panel active" data-panel="all">
+          <div class="list-grid-2col">
+            <a class="list-row" href="#">
+              <div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/55fa93c6-da93-4c0a-ac44-869cc7d27.webp" alt=""></div>
+              <div><h4>Vantage Markets Refer a Friend: Earn Up To $250 Cash Bonus</h4><p class="date">September 5, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/6c810892-670e-4144-b123-804c31b3a0f8.webp" alt=""></div>
+              <div><h4>Claim the Moneta Markets 20% Redeposit Bonus</h4><p class="date">September 4, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/Dinero-Markets-20-Deposit-Bonus.webp" alt=""></div>
+              <div><h4>Dinero Markets 20% Exclusive Deposit Bonus</h4><p class="date">September 3, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/AUS-GLOBAL-23-No-Deposit-Bonus.webp" alt=""></div>
+              <div><h4>AUS GLOBAL $23 No Deposit Bonus – Trade with Free Credit</h4><p class="date">September 3, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/Liquid-Brokers-30-No-Deposit-Bonus.webp" alt=""></div>
+              <div><h4>Liquid Brokers $30 Forex No Deposit Bonus</h4><p class="date">September 3, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/TheFXBuddy-80USD-No-Deposit-Bonus.webp" alt=""></div>
+              <div><h4>TheFXBuddy $80 Forex No Deposit Bonus</h4><p class="date">September 3, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/07/Weby-Markets-500-Percent-Deposit-Bonus.webp" alt=""></div>
+              <div><h4>Weby Markets 500% Forex Deposit Bonus</h4><p class="date">July 28, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile">FOREX<br>DEPOSIT</div>
+              <div><h4>Get 20% Deposit Bonus – Aurenex Limited</h4><p class="date">June 24, 2026</p></div>
+            </a>
+          </div>
+        </div>
+        <!-- COMPETITION -->
+        <div class="tab-panel" data-panel="forex-competition">
+          <div class="list-grid-2col">
+            <a class="list-row" href="#"><div class="logo-tile">FOREX<br>COMPETITION</div><div><h4>Headway World Cup 2026 Contest</h4><p class="date">June 15, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile">FOREX<br>COMPETITION</div><div><h4>Headway Golden May 2026 – $250,000 Prize</h4><p class="date">May 14, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/02/Headway-Ramadan-Contest-2026.webp" alt=""></div><div><h4>$14K Ramadan Kareem 2026 – Headway</h4><p class="date">February 15, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/02/ATFX-Golden-Chance-Lucky-Draw.webp" alt=""></div><div><h4>Golden Chance Lucky Draw – ATFX</h4><p class="date">February 14, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/02/Trading.com-Paper-Trading-Competition.webp" alt=""></div><div><h4>Paper Trading Competition – Trading.com</h4><p class="date">February 14, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/04/Grand-Capital-Trading-Tournament.webp" alt=""></div><div><h4>$500 Trading Tournament – Grand Capital</h4><p class="date">February 14, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2025/04/Vantage-Markets-Demo-Trading-Contest.webp" alt=""></div><div><h4>$4000 Demo Trading Contest – VantageFX</h4><p class="date">February 2, 2026</p></div></a>
+          </div>
+        </div>
+        <!-- DEPOSIT -->
+        <div class="tab-panel" data-panel="forex-deposit-bonus">
+          <div class="list-grid-2col">
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/6c810892-670e-4144-b123-804c31b3a0f8.webp" alt=""></div><div><h4>Claim the Moneta Markets 20% Redeposit Bonus</h4><p class="date">September 4, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/Dinero-Markets-20-Deposit-Bonus.webp" alt=""></div><div><h4>Dinero Markets 20% Exclusive Deposit Bonus</h4><p class="date">September 3, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/07/Weby-Markets-500-Percent-Deposit-Bonus.webp" alt=""></div><div><h4>Weby Markets 500% Forex Deposit Bonus</h4><p class="date">July 28, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile">FOREX<br>DEPOSIT</div><div><h4>Get 20% Deposit Bonus – Aurenex Limited</h4><p class="date">June 24, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile">FOREX<br>DEPOSIT</div><div><h4>Get 20% Forex Deposit Bonus – Deriv</h4><p class="date">June 17, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile">FOREX<br>DEPOSIT</div><div><h4>Get 125% Smart Bonus – FXCL</h4><p class="date">June 17, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile">FOREX<br>DEPOSIT</div><div><h4>200% Deposit Bonus – FNMarkets</h4><p class="date">June 17, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile">FOREX<br>DEPOSIT</div><div><h4>Get 100% Deposit Bonus – Valetax</h4><p class="date">June 16, 2026</p></div></a>
+          </div>
+        </div>
+        <!-- NO DEPOSIT -->
+        <div class="tab-panel" data-panel="no-deposit-bonus">
+          <div class="list-grid-2col">
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/AUS-GLOBAL-23-No-Deposit-Bonus.webp" alt=""></div><div><h4>AUS GLOBAL $23 No Deposit Bonus</h4><p class="date">September 3, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/Liquid-Brokers-30-No-Deposit-Bonus.webp" alt=""></div><div><h4>Liquid Brokers $30 Forex No Deposit Bonus</h4><p class="date">September 3, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/TheFXBuddy-80USD-No-Deposit-Bonus.webp" alt=""></div><div><h4>TheFXBuddy $80 Forex No Deposit Bonus</h4><p class="date">September 3, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/07/Weby-Markets-25-USD-No-Deposit-Bonus.webp" alt=""></div><div><h4>Weby Markets $25 No Deposit Bonus</h4><p class="date">July 28, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile">FOREX<br>NO</div><div><h4>FreshForex $50 No-Deposit Bonus</h4><p class="date">June 18, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile">FOREX<br>NO</div><div><h4>Headway $150 No Deposit Bonus</h4><p class="date">May 14, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/02/Valetax-Forex-Welcome-Bonus.webp" alt=""></div><div><h4>$30 Forex Welcome Bonus – Valetax</h4><p class="date">April 14, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2025/11/Headway-No-Deposit-Bonus.webp" alt=""></div><div><h4>$111 No Deposit Bonus – Headway</h4><p class="date">April 14, 2026</p></div></a>
+          </div>
+        </div>
+        <!-- REBATE -->
+        <div class="tab-panel" data-panel="forex-rebate">
+          <div class="list-grid-2col">
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/03/FreshForex-Cashback-Promotion.webp" alt=""></div><div><h4>100% Cashback Promotion – FreshForex</h4><p class="date">March 20, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/03/KVB-cashback.webp" alt=""></div><div><h4>$2000 Cashback Bonus – KVB Prime</h4><p class="date">March 15, 2026</p></div></a>
+          </div>
+        </div>
+        <!-- LOYALTY -->
+        <div class="tab-panel" data-panel="loyalty-program">
+          <div class="list-grid-2col">
+            <a class="list-row" href="#"><div class="logo-tile"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/03/LegacyFX-Loyalty-Membership-Program.webp" alt=""></div><div><h4>Loyalty Membership Program – LegacyFX</h4><p class="date">March 20, 2026</p></div></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Awards section -->
+    <section class="section">
+      <div class="section-title">
+        <div><h2>Forex Awards 2025–2026</h2><p>Recognizing excellence across the global trading industry.</p></div>
+        <a href="#">View All →</a>
+      </div>
+      <div class="awards-section">
+        <div class="award-track">
+          <div class="award-card"><div class="badge-img">🏆</div><small>2026 Award</small><h4>Most Trusted Trading Broker</h4><p>IQ Global</p></div>
+          <div class="award-card"><div class="badge-img">🏆</div><small>2026 Award</small><h4>Best Multi-Asset Trading Platform</h4><p>IQ Global</p></div>
+          <div class="award-card"><div class="badge-img">🏆</div><small>2026 Award</small><h4>Best Execution Broker</h4><p>IUX</p></div>
+          <div class="award-card"><div class="badge-img">🏆</div><small>2026 Award</small><h4>Most Innovative Technology</h4><p>IUX</p></div>
+          <div class="award-card"><div class="badge-img">🏆</div><small>2026 Award</small><h4>Best Trading Experience</h4><p>Mega Fusion</p></div>
+          <div class="award-card"><div class="badge-img">🏆</div><small>2025 Award</small><h4>Customer Service Excellence</h4><p>Headway</p></div>
+          <div class="award-card"><div class="badge-img">🏆</div><small>2023 Award</small><h4>Best Trading Experience</h4><p>RoboForex</p></div>
+          <div class="award-card"><div class="badge-img">🏆</div><small>2023 Award</small><h4>Most Innovative Broker</h4><p>Fusion Markets</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-column: Deposit Bonus + Ad + Competitions -->
+    <section class="section">
+      <div class="split-3">
+        <div class="split-col">
+          <div class="recent-col">
+            <div class="news-heading"><h2>Forex Deposit Bonus</h2></div>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/6c810892-670e-4144-b123-804c31b3a0f8.webp" alt=""></div>
+              <div><h4>Claim the Moneta Markets 20% Redeposit Bonus</h4><p>September 4, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/09/Dinero-Markets-20-Deposit-Bonus.webp" alt=""></div>
+              <div><h4>Dinero Markets 20% Exclusive Deposit Bonus</h4><p>September 3, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/07/Weby-Markets-500-Percent-Deposit-Bonus.webp" alt=""></div>
+              <div><h4>Weby Markets 500% Forex Deposit Bonus</h4><p>July 28, 2026</p></div>
+            </a>
+            <a class="list-row" href="#">
+              <div class="logo-tile light">FOREX<br>DEPOSIT</div>
+              <div><h4>Get 20% Deposit Bonus – Aurenex Limited</h4><p>June 24, 2026</p></div>
+            </a>
+          </div>
+        </div>
+        <div class="split-col">
+          <div class="ad-300x250">Ad · 300×250</div>
+        </div>
+        <div class="split-col">
+          <div class="recent-col">
+            <div class="news-heading"><h2>Forex Competitions</h2></div>
+            <a class="list-row" href="#"><div class="logo-tile light">FOREX<br>COMPETITION</div><div><h4>Headway World Cup 2026 Contest</h4><p>June 15, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile light">FOREX<br>COMPETITION</div><div><h4>Headway Golden May 2026 – $250,000 Prize</h4><p>May 14, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/02/Headway-Ramadan-Contest-2026.webp" alt=""></div><div><h4>$14K Ramadan Kareem 2026 – Headway</h4><p>February 15, 2026</p></div></a>
+            <a class="list-row" href="#"><div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/02/ATFX-Golden-Chance-Lucky-Draw.webp" alt=""></div><div><h4>Golden Chance Lucky Draw – ATFX</h4><p>February 14, 2026</p></div></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 728x90 split ad -->
+    <div class="ad-row">
+      <div class="ad-row-split">
+        <div class="ad-banner-half">Advertisement · 728×90</div>
+        <div class="ad-banner-half">Advertisement · 728×90</div>
+      </div>
+    </div>
+
+    <!-- Quick category links -->
+    <div class="quick">
+      <a class="quick-item" href="#"><b>◈</b>All Brokers</a>
+      <a class="quick-item" href="#"><b>♢</b>TradingView</a>
+      <a class="quick-item" href="#"><b>▥</b>cTrader Brokers</a>
+      <a class="quick-item" href="#"><b>♢</b>NinjaTrader</a>
+      <a class="quick-item" href="#"><b>♙</b>Copy Trading</a>
+      <a class="quick-item" href="#"><b>◌</b>MT4 Brokers</a>
+      <a class="quick-item" href="#"><b>♧</b>MT5 Brokers</a>
+    </div>
+
+    <!-- Top brokers + Latest blog -->
+    <section class="section">
+      <div class="section-title">
+        <div><h2>Top Forex Brokers</h2><p>Compare trusted brokers by conditions, platforms and regulation.</p></div>
+        <a href="#">Compare All Brokers →</a>
+      </div>
+      <div class="broker-grid">
+        <div class="bg-white rounded-r14 p-5 border border-line">
+          <div class="broker-list-grid">
+            <a class="broker-row" href="#">
+              <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2026/07/Weby-Markets-logo.webp" alt="Weby"></div>
+              <div><h4>Weby Markets Review 2026</h4><div class="post-date">September 3, 2026</div></div>
+            </a>
+            <a class="broker-row" href="#">
+              <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/07/fusion-markets.webp" alt="Fusion"></div>
+              <div><h4>Fusion Markets Review 2026</h4><div class="post-date">October 4, 2025</div></div>
+            </a>
+            <a class="broker-row" href="#">
+              <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/08/pepperstone.png" alt="Pepperstone"></div>
+              <div><h4>Pepperstone Review 2026</h4><div class="post-date">October 2, 2025</div></div>
+            </a>
+            <a class="broker-row" href="#">
+              <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/08/tmgm.png" alt="TMGM"></div>
+              <div><h4>TMGM Review 2026</h4><div class="post-date">October 2, 2025</div></div>
+            </a>
+            <a class="broker-row" href="#">
+              <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/04/fxcm.webp" alt="FXCM"></div>
+              <div><h4>FXCM Review 2026</h4><div class="post-date">September 12, 2025</div></div>
+            </a>
+            <a class="broker-row" href="#">
+              <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/07/roboforex.jpeg" alt="RoboForex"></div>
+              <div><h4>RoboForex Review 2026</h4><div class="post-date">September 11, 2025</div></div>
+            </a>
+            <a class="broker-row" href="#">
+              <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/05/Finex.webp" alt="Finex"></div>
+              <div><h4>Finex Review 2026</h4><div class="post-date">September 10, 2025</div></div>
+            </a>
+            <a class="broker-row" href="#">
+              <div class="broker-logo"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/01/headway.jpeg" alt="Headway"></div>
+              <div><h4>Headway Review 2026</h4><div class="post-date">September 8, 2025</div></div>
+            </a>
+          </div>
+        </div>
+        <div class="bg-white rounded-r14 p-5 border border-line">
+          <div class="tabs"><button class="tab active">Latest Blog</button></div>
+          <a class="list-row" href="#">
+            <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/01/Bringing-Mr.-Bollinger-to-the-Table.webp" alt=""></div>
+            <div><h4>Bringing Mr. Bollinger to the Table</h4><p>November 30, 2025</p></div>
+          </a>
+          <a class="list-row" href="#">
+            <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2024/03/Forex-Regulators.webp" alt=""></div>
+            <div><h4>Forex Regulators: Guardians of Financial Markets</h4><p>November 3, 2025</p></div>
+          </a>
+          <a class="list-row" href="#">
+            <div class="logo-tile light"><img src="https://fxdailyinfo.co/wp-content/uploads/2023/11/Insights-Into-Asian-FX-Market-Regulation.webp" alt=""></div>
+            <div><h4>Insights Into Asian FX Market Regulation</h4><p>June 13, 2023</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="side">
+    <div class="ad-300x250">Ad · 300×250</div>
+
+    <div class="side-card">
+      <h3>Find Your Broker</h3>
+      <div class="field">
+        <label>Region</label>
+        <select class="select"><option>All Regions</option><option>Asia</option><option>Europe</option><option>MENA</option></select>
+      </div>
+      <div class="field">
+        <label>Regulation</label>
+        <select class="select"><option>Any Regulation</option><option>FCA</option><option>ASIC</option><option>CySEC</option></select>
+      </div>
+      <div class="field">
+        <label>Min Deposit</label>
+        <select class="select"><option>Any</option><option>Under $10</option><option>$10 – $100</option><option>$100+</option></select>
+      </div>
+      <button class="find-btn">Find Brokers</button>
+    </div>
+
+    <div class="award">
+      <h3>2026 Forex Awards</h3>
+      <p>Voting is now open. Pick the brokers and platforms that delivered in 2026.</p>
+      <a class="award-btn" href="#">Vote Now →</a>
+      <span class="cup">🏆</span>
+    </div>
+
+    <div class="newsletter side-newsletter">
+      <h2>Stay Ahead of Forex News &amp; Offers</h2>
+      <p>Get the latest broker reviews, bonus alerts and market updates.</p>
+      <form class="email" onsubmit="return false;">
+        <input type="email" placeholder="Your email address">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </aside>
+</div>
+
+<!-- ============ GLOSSARY ============ -->
+<section class="section glossary-section">
+  <div class="section-title">
+    <div><h2>Glossary</h2><p>Common forex bonus &amp; promotion terms, explained.</p></div>
+  </div>
+  <div class="glossary-grid">
+    <div class="glossary-card">
+      <span class="glossary-badge" style="background:#fdf0d5;color:#9a6b16">D</span>
+      <h4>Deposit Bonus</h4>
+      <p>A bonus awarded when you fund a live trading account. Credited as a percentage of your deposit amount.</p>
+    </div>
+    <div class="glossary-card">
+      <span class="glossary-badge" style="background:#e3edfd;color:#2f5fd1">N</span>
+      <h4>No Deposit Bonus</h4>
+      <p>A free bonus awarded to new clients upon registration, allowing live trading without risking your own funds.</p>
+    </div>
+    <div class="glossary-card">
+      <span class="glossary-badge" style="background:#efe6fb;color:#7c4fd1">D</span>
+      <h4>Demo Contest</h4>
+      <p>A trading competition held on demo accounts where participants can win cash prizes without risking real money.</p>
+    </div>
+    <div class="glossary-card">
+      <span class="glossary-badge" style="background:#e2f7ea;color:#1f9d55">L</span>
+      <h4>Live Contest</h4>
+      <p>Contest held on Live account — deposit required — with bigger cash prizes.</p>
+    </div>
+    <div class="glossary-card">
+      <span class="glossary-badge" style="background:#fdece0;color:#d1682f">F</span>
+      <h4>Forex Gift</h4>
+      <p>A gift for clients/partners for completing certain requirements — from a bonus to the latest hi-tech gadget.</p>
+    </div>
+    <div class="glossary-card">
+      <span class="glossary-badge" style="background:#fbe6ef;color:#c94a80">R</span>
+      <h4>Rebate</h4>
+      <p>Cashback for withdrawable bonus per traded lot.</p>
+    </div>
+    <div class="glossary-card">
+      <span class="glossary-badge" style="background:#fdf0d5;color:#9a6b16">A</span>
+      <h4>Affiliate / IB</h4>
+      <p>Receive a commission from your fellow traders. Specially designed for marketers.</p>
+    </div>
+    <div class="glossary-card">
+      <span class="glossary-badge" style="background:#e3edfd;color:#2f5fd1">F</span>
+      <h4>Free VPS</h4>
+      <p>Access to an optimized Forex Virtual Private Server for free when maintaining a minimum balance.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container mx-auto px-6 footer-grid">
+    <div>
+      <div class="footer-logo-text">Fx<i>Daily</i>Info</div>
+      <p>Get latest updates on Forex no deposit bonus, Forex deposit bonus, Forex brokers review and all Forex bonus promotions.</p>
+      <a class="footer-email" href="#">info@fxdailyinfo.co</a>
+      <div class="footer-social">
+        <a href="#" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"/></svg></a>
+        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"/><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="#">Forex Brokers</a>
+      <a href="#">Broker Reviews</a>
+      <a href="#">Bonuses</a>
+      <a href="#">Promotions</a>
+      <a href="#">News</a>
+    </div>
+    <div>
+      <h4>Bonus Hub</h4>
+      <a href="#">No Deposit Bonus</a>
+      <a href="#">Deposit Bonus</a>
+      <a href="#">Welcome Bonus</a>
+      <a href="#">Cashback</a>
+      <a href="#">Contests</a>
+    </div>
+    <div>
+      <h4>Tools &amp; Learn</h4>
+      <a href="#">Forex Calculators</a>
+      <a href="#">Forex Basics</a>
+      <a href="#">Trading Guides</a>
+      <a href="#">Risk Management</a>
+      <a href="#">Glossary</a>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Global Forex Awards</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Risk Disclaimer</a>
+    </div>
+  </div>
+  <div class="container mx-auto px-6 copyright">
+    <span>© 2012–2026 FXDailyInfo.co · All Rights Reserved.</span>
+    <span>Trading involves risk. Losses can exceed deposits.</span>
+  </div>
+</footer>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tabs').forEach(group => {
+    const tabs = group.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const key = tab.dataset.tab;
+        const wrap = group.parentElement;
+        wrap.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        const target = wrap.querySelector(`.tab-panel[data-panel="${key}"]`);
+        if (target) target.classList.add('active');
+      });
+    });
+  });
+
+  // Live countdown
+  let total = 1789146;
+  const el = document.getElementById('sessionCountdown');
+  if (el) {
+    setInterval(() => {
+      total--;
+      if (total < 0) total = 1789146;
+      const h = String(Math.floor(total / 3600)).padStart(2, '0');
+      const m = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+      const s = String(total % 60).padStart(2, '0');
+      el.textContent = `${h}:${m}:${s}`;
+    }, 1000);
+  }
+</script>
+</body>
+</html>

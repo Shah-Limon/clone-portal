@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clone Portal — FinanceFeeds &amp; FxDailyInfo Design Studies</title>
+<meta name="description" content="Design clones of FinanceFeeds.com and FxDailyInfo.co — built with Tailwind + custom CSS.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  .hero-bg {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(38,233,134,.12), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(215,38,61,.12), transparent 40%),
+      linear-gradient(135deg, #0c1424 0%, #1a2a4a 100%);
+  }
+  .card-fx { background: linear-gradient(135deg, #d7263d, #a01c2e); }
+  .card-fd { background: linear-gradient(135deg, #14b869, #119955); }
+  .lift { transition: transform .25s, box-shadow .25s; }
+  .lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,.15); }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+<!-- HERO -->
+<header class="hero-bg text-white">
+  <div class="max-w-6xl mx-auto px-6 py-20 text-center">
+    <div class="inline-block bg-white/10 backdrop-blur border border-white/20 rounded-full px-4 py-1.5 text-xs font-bold tracking-widest uppercase mb-6">Design Study · 2026</div>
+    <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-4">Clone Portal</h1>
+    <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">Pixel-faithful design clones of two leading trading-news sites — built with Tailwind CSS + custom styles. Pure HTML, no framework, no build step.</p>
+    <div class="mt-10 flex items-center justify-center gap-3 text-sm text-slate-400">
+      <span class="inline-flex items-center gap-1.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.6 0-12 5.4-12 12 0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.6 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.8-1.6 8.2-6.1 8.2-11.4 0-6.6-5.4-12-12-12z"/></svg>Open Source</span>
+      <span>·</span>
+      <span>Built with Tailwind CSS</span>
+      <span>·</span>
+      <span>Fully Responsive</span>
+    </div>
+  </div>
+</header>
+
+<!-- CLONE CARDS -->
+<main class="max-w-6xl mx-auto px-6 py-16">
+  <div class="grid md:grid-cols-2 gap-8">
+
+    <!-- FINANCEFEEDS -->
+    <a href="./financefeeds.html" class="lift bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200 block group">
+      <div class="card-fx h-48 flex items-end p-6 relative overflow-hidden">
+        <div class="absolute top-4 right-4 bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Finance Media</div>
+        <div class="text-white">
+          <div class="text-xs font-bold uppercase tracking-widest opacity-80 mb-1">Clone #1</div>
+          <h2 class="text-3xl font-black tracking-tight">FinanceFeeds</h2>
+        </div>
+      </div>
+      <div class="p-8">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="bg-red-100 text-red-700 text-xs font-bold px-2.5 py-1 rounded-full">Roboto Slab</span>
+          <span class="bg-slate-100 text-slate-700 text-xs font-bold px-2.5 py-1 rounded-full">Red Accent</span>
+          <span class="bg-slate-100 text-slate-700 text-xs font-bold px-2.5 py-1 rounded-full">Magazine</span>
+        </div>
+        <p class="text-slate-600 mb-5">Magazine-style trading news layout. Hero featured + side stories, breaking-news ticker, live market tickers, post grid, opinion section, sticky sidebar with trending and tags.</p>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-slate-500">Navy base · 320 sidebar · 3-col grid</span>
+          <span class="text-red-600 font-bold group-hover:translate-x-1 transition">View Clone →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- FXDAILYINFO -->
+    <a href="./fxdailyinfo.html" class="lift bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-200 block group">
+      <div class="card-fd h-48 flex items-end p-6 relative overflow-hidden">
+        <div class="absolute top-4 right-4 bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Bonus Hub</div>
+        <div class="text-white">
+          <div class="text-xs font-bold uppercase tracking-widest opacity-80 mb-1">Clone #2</div>
+          <h2 class="text-3xl font-black tracking-tight">FxDailyInfo</h2>
+        </div>
+      </div>
+      <div class="p-8">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full">Inter + Playfair</span>
+          <span class="bg-slate-100 text-slate-700 text-xs font-bold px-2.5 py-1 rounded-full">Green Accent</span>
+          <span class="bg-slate-100 text-slate-700 text-xs font-bold px-2.5 py-1 rounded-full">Bonus Portal</span>
+        </div>
+        <p class="text-slate-600 mb-5">Forex bonus portal layout. Hero with chart card, 3-column split (bonuses/brokers/trending), tabbed bonus list with 6 categories, awards slider, glossary, broker compare.</p>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-slate-500">White + navy · ticker · sticky search</span>
+          <span class="text-emerald-600 font-bold group-hover:translate-x-1 transition">View Clone →</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- TECH NOTES -->
+  <section class="mt-16 bg-white border border-slate-200 rounded-2xl p-8">
+    <h3 class="text-2xl font-black mb-4">Build Notes</h3>
+    <div class="grid md:grid-cols-3 gap-6 text-sm">
+      <div>
+        <div class="font-bold text-slate-900 mb-2">📐 Layout</div>
+        <p class="text-slate-600">Tailwind utility classes for grid + spacing. Custom CSS handles marquees, sticky header, ticker scroll, tab transitions, and reduced-motion fallbacks.</p>
+      </div>
+      <div>
+        <div class="font-bold text-slate-900 mb-2">🎨 Design Tokens</div>
+        <p class="text-slate-600">Each clone has its own palette and type system — FxDailyInfo uses Inter + Playfair Display with green-on-navy. FinanceFeeds uses Roboto Slab serif headlines with red accents.</p>
+      </div>
+      <div>
+        <div class="font-bold text-slate-900 mb-2">📱 Responsive</div>
+        <p class="text-slate-600">Breakpoints at 1024 / 768 / 480. Desktop nav collapses to hamburger on mobile; 3-col grids collapse to 2 or 1; sticky sidebars become static.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-slate-200 py-8 text-center text-sm text-slate-500">
+  <p>Design study · No commercial use · Source sites: <a href="https://financefeeds.com" class="hover:text-red-600">financefeeds.com</a> · <a href="https://fxdailyinfo.co" class="hover:text-emerald-600">fxdailyinfo.co</a></p>
+</footer>
+</body>
+</html>
